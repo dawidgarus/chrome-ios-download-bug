@@ -27,9 +27,8 @@ app.post('/create', (req, res) => {
 });
 
 app.get('/download', (req, res) => {
-	console.log('download', req.session.created);
+	console.log('download', req.session.created, req.get('cookie'));
 	if (req.session.created) {
-		res.setHeader('Set-cookie', req.get('cookie'));
 		res.setHeader('Content-disposition', 'attachment; filename=export.zip');
 		res.setHeader('Content-type', 'application/zip');
 		fs.createReadStream(path.join(__dirname, 'export.zip')).pipe(res);
